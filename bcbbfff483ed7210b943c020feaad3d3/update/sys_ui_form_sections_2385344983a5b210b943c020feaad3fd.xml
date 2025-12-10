@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_form_sections form_id="2385344983a5b210b943c020feaad3fd" sys_domain="global" table="x_1604691_enerst_0_service_case" version="3">
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>0</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-11-29 13:03:15</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>b785744983a5b210b943c020feaad303</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_1604691_enerst_0_service_case" name="x_1604691_enerst_0_service_case" sys_domain="global" view="Default view">2385344983a5b210b943c020feaad3fd</sys_ui_form>
+            <sys_ui_section caption="NULL" display_value="" name="x_1604691_enerst_0_service_case" sys_domain="global" view="Default view">7c02c4458321b210b943c020feaad3a5</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-11-29 13:03:15</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>1</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-11-29 13:03:15</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>ff85744983a5b210b943c020feaad304</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_1604691_enerst_0_service_case" name="x_1604691_enerst_0_service_case" sys_domain="global" view="Default view">2385344983a5b210b943c020feaad3fd</sys_ui_form>
+            <sys_ui_section caption="GenAI Analysis" display_value="GenAI Analysis" name="x_1604691_enerst_0_service_case" sys_domain="global" view="Default view">6385344983a5b210b943c020feaad31a</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-11-29 13:03:15</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>2</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-11-29 13:03:15</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>7385744983a5b210b943c020feaad318</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_1604691_enerst_0_service_case" name="x_1604691_enerst_0_service_case" sys_domain="global" view="Default view">2385344983a5b210b943c020feaad3fd</sys_ui_form>
+            <sys_ui_section caption="Location &amp; Proof" display_value="Location &amp; Proof" name="x_1604691_enerst_0_service_case" sys_domain="global" view="Default view">6b85344983a5b210b943c020feaad3fb</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-11-29 13:03:15</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form action="INSERT_OR_UPDATE">
+            <name>x_1604691_enerst_0_service_case</name>
+            <roles/>
+            <sys_class_name>sys_ui_form</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-11-29 13:03:15</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>2385344983a5b210b943c020feaad3fd</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>x_1604691_enerst_0_service_case</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="EnerState" source="x_1604691_enerst_0">bcbbfff483ed7210b943c020feaad3d3</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="EnerState">bcbbfff483ed7210b943c020feaad3d3</sys_scope>
+            <sys_update_name>sys_ui_form_sections_2385344983a5b210b943c020feaad3fd</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-11-29 13:03:15</sys_updated_on>
+            <sys_user/>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_form>
+    </sys_ui_form_sections>
+</record_update>

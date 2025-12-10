@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="00a144058321b210b943c020feaad37b" label="Geo Map Table" max_length="40" name="x_1604691_enerst_0_geo_map_table" type="collection">
+        <element label="Map Label" max_length="100" name="map_label" type="string"/>
+        <element attributes="scale=6" label="Latitude" max_length="40" name="latitude" type="decimal"/>
+        <element label="Address" max_length="255" name="address" type="string"/>
+        <element label="Linked Case" max_length="32" name="linked_case" reference="x_1604691_enerst_0_service_case" type="reference"/>
+        <element label="Zip Code" max_length="40" name="zip_code" type="string"/>
+        <element attributes="scale=6" label="Longitude" max_length="40" name="longitude" type="decimal"/>
+        <element choice="3" default="outage" label="Pin Type" max_length="40" name="pin_type" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Maintenance" sequence="2" value="maintenance"/>
+                <element inactive_on_update="false" label="Hazard" sequence="1" value="hazard"/>
+                <element inactive_on_update="false" label="Outage" sequence="0" value="outage"/>
+            </choice>
+        </element>
+        <element label="Assignment Group" max_length="32" name="assignment_group" reference="sys_user_group" type="reference"/>
+        <element choice="3" default="active" label="Pin Status" max_length="40" name="pin_status" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Resolved" sequence="1" value="resolved"/>
+                <element inactive_on_update="false" label="Active" sequence="0" value="active"/>
+            </choice>
+        </element>
+        <index name="index">
+            <element name="assignment_group"/>
+        </index>
+        <index name="index2">
+            <element name="linked_case"/>
+        </index>
+    </element>
+</database>

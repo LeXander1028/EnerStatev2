@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_css">
+    <sp_css action="INSERT_OR_UPDATE">
+        <css>/* 1. Import the Font */&#13;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&amp;display=swap');&#13;
+&#13;
+/* 2. Apply it to the whole portal */&#13;
+body {&#13;
+    font-family: 'Montserrat', sans-serif !important;&#13;
+}&#13;
+&#13;
+/* 3. Custom Header Styling (Example) */&#13;
+h1, h2, h3 {&#13;
+    font-family: 'Montserrat', sans-serif !important;&#13;
+    font-weight: 700; /* Bold */&#13;
+    text-transform: uppercase;&#13;
+    letter-spacing: 1px;&#13;
+}&#13;
+&#13;
+/* 4. Custom Button Styling */&#13;
+.btn-primary {&#13;
+    background-color: #004d40 !important; /* Deep Teal */&#13;
+    border-color: #004d40 !important;&#13;
+    border-radius: 0px !important; /* Industrial square edges */&#13;
+    font-weight: 700;&#13;
+}</css>
+        <name>EnerState Custom Fonts</name>
+        <sys_class_name>sp_css</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-12-04 05:29:39</sys_created_on>
+        <sys_id>b49d302683e93210b943c020feaad3bc</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>EnerState Custom Fonts</sys_name>
+        <sys_package display_value="EnerState" source="x_1604691_enerst_0">bcbbfff483ed7210b943c020feaad3d3</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="EnerState">bcbbfff483ed7210b943c020feaad3d3</sys_scope>
+        <sys_update_name>sp_css_b49d302683e93210b943c020feaad3bc</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-12-04 05:29:39</sys_updated_on>
+        <turn_off_scss_compilation>false</turn_off_scss_compilation>
+    </sp_css>
+</record_update>

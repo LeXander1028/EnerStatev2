@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>standard</category>
+        <client_script><![CDATA[function controller($scope, spAriaUtil) {
+	$scope.accessibilityModeEnabled = spAriaUtil.isAccessibilityEnabled();
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>/* Target our custom EnerState Tile */&#13;
+a.enerstate-tile {&#13;
+  /* 1. RESET: Remove default roundness and flat look */&#13;
+  border-radius: 0px !important;&#13;
+  text-decoration: none !important;&#13;
+  display: block;&#13;
+  transition: all 0.2s ease-in-out;&#13;
+  &#13;
+  /* 2. THE BORDER: This forces the border on top of the background color */&#13;
+  border: 5px solid #ffb300 !important; /* Amber Gold */&#13;
+  &#13;
+  /* 3. SHADOW &amp; DEPTH */&#13;
+  box-shadow: 0 4px 0px rgba(0,0,0,0.2) !important; /* Hard shadow for industrial feel */&#13;
+  position: relative;&#13;
+  top: 0;&#13;
+}&#13;
+&#13;
+/* Hover Effect: "Press" the button */&#13;
+a.enerstate-tile:hover {&#13;
+  top: 2px; /* Moves down slightly */&#13;
+  box-shadow: 0 2px 0px rgba(0,0,0,0.2) !important; /* Shadow shrinks */&#13;
+  border-color: white !important; /* Border turns white */&#13;
+}&#13;
+&#13;
+/* Typography inside the tile */&#13;
+.tile-title {&#13;
+  font-weight: 700;&#13;
+  text-transform: uppercase;&#13;
+  margin-top: 10px;&#13;
+  letter-spacing: 1px;&#13;
+}&#13;
+&#13;
+.tile-desc {&#13;
+  font-size: 13px;&#13;
+  opacity: 0.9;&#13;
+}&#13;
+&#13;
+/* Target our custom EnerState Tile */&#13;
+a.enerstate-tile {&#13;
+  /* 1. RESET &amp; LAYOUT */&#13;
+  border-radius: 0px !important;&#13;
+  text-decoration: none !important;&#13;
+  display: block;&#13;
+  transition: all 0.2s ease-in-out;&#13;
+  text-align: center; /* CENTER EVERYTHING */&#13;
+  padding: 20px 10px; /* Add breathing room */&#13;
+  &#13;
+  /* 2. THE BORDER */&#13;
+  border: 5px solid #ffb300 !important; /* Amber Gold */&#13;
+  &#13;
+  /* 3. SHADOW &amp; DEPTH */&#13;
+  box-shadow: 0 4px 0px rgba(0,0,0,0.2) !important;&#13;
+  position: relative;&#13;
+  top: 0;&#13;
+  &#13;
+  /* 4. BACKGROUND - Make them semi-transparent so background image shows through? &#13;
+     Or keep them solid. Let's keep them solid for readability. */&#13;
+   background-color: rgba(255, 255, 255, 0.9); /* White background for the box itself */&#13;
+}&#13;
+&#13;
+/* Hover Effect */&#13;
+a.enerstate-tile:hover {&#13;
+  top: 2px;&#13;
+  box-shadow: 0 2px 0px rgba(0,0,0,0.2) !important;&#13;
+  border-color: white !important;&#13;
+}&#13;
+&#13;
+/* --- TYPOGRAPHY --- */&#13;
+.tile-title {&#13;
+  font-weight: 700;&#13;
+  text-transform: uppercase;&#13;
+  margin-top: 15px;&#13;
+  letter-spacing: 1px;&#13;
+  color: #333; /* Dark text for title */&#13;
+}&#13;
+&#13;
+.tile-desc {&#13;
+  font-size: 13px;&#13;
+  opacity: 0.8;&#13;
+  color: #555;&#13;
+  display: block; /* Ensures it sits on its own line */&#13;
+}&#13;
+&#13;
+/* --- ICON COLORS (The Fix!) --- */&#13;
+&#13;
+/* If the button is set to "Danger" (Red) */&#13;
+.icon-link-background-danger .fa {&#13;
+    color: #d9534f !important; /* Red Icon */&#13;
+}&#13;
+&#13;
+/* If the button is set to "Primary" (Teal/Blue) */&#13;
+.icon-link-background-primary .fa {&#13;
+    color: #004d40 !important; /* Teal Icon */&#13;
+    /* Or use #0056b3 for standard Blue if you prefer */&#13;
+}</css>
+        <data_table>sp_instance_link</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list>type,url,sc_category,sc_cat_item,kb_topic,kb_article,kb_category,sp_page,title,short_description,color,class_name,glyph</field_list>
+        <has_preview>false</has_preview>
+        <id/>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>EnerState Button</name>
+        <option_schema>[{"name":"link_template","section":"Presentation","label":"Template","type":"choice","choices":[{"label":"Top Icon","value":"Top Icon"},{"label":"Circle Icon","value":"Circle Icon"},{"label":"Color Box","value":"Color Box"}]}]</option_schema>
+        <public>true</public>
+        <roles/>
+        <script><![CDATA[(function(){
+	var gr = $sp.getInstanceRecord();
+	data.href = $sp.getMenuHREF(gr);
+	data.target = options.target || "";
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-12-07 05:42:45</sys_created_on>
+        <sys_id>957d90eb83a93210b943c020feaad3c9</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>EnerState Button</sys_name>
+        <sys_package display_value="EnerState" source="x_1604691_enerst_0">bcbbfff483ed7210b943c020feaad3d3</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="EnerState">bcbbfff483ed7210b943c020feaad3d3</sys_scope>
+        <sys_update_name>sp_widget_957d90eb83a93210b943c020feaad3c9</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-12-07 05:53:59</sys_updated_on>
+        <template><![CDATA[<div class="iconlink" ng-class="{'high-contrast': accessibilityModeEnabled}">
+  <a ng-if="::(options.link_template == 'Top Icon' || !options.link_template)" ng-href="{{::data.href}}" class="top_icon {{::options.class_name}}" target="{{::data.target}}">
+    <div class="m-b fa fa-{{::options.glyph}} fa-4x {{::options.class_name}} text-{{::options.color}}"></div>
+    <h2>{{::options.title}}</h2>
+    <span class="text-muted">{{::options.short_description}}</span>
+  </a>
+
+  <a ng-if="::(options.link_template == 'Circle Icon')" ng-href="{{::data.href}}" class="circle_icon {{::options.class_name}} text-{{::options.color}}" target="{{::data.target}}">
+    <span class="fa fa-stack fa-2x" aria-hidden="true">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-{{::options.glyph}} fa-stack-1x fa-inverse"></i>
+    </span>
+    <h2>{{::options.title}}</h2>
+    <span class="text-muted">{{::options.short_description}}</span>
+  </a>
+
+  <a ng-if="::(options.link_template == 'Color Box')" 
+     ng-href="{{::data.href}}" 
+     class="color_box enerstate-tile {{::options.class_name}} icon-link-background-{{::options.color}} text-white" 
+     target="{{::data.target}}">
+    
+    <div class="tile-content">
+        <div class="fa fa-{{::options.glyph}} fa-3x {{::options.class_name}}"></div>
+        <h2 class="tile-title">{{::options.title}}</h2>
+        <span class="tile-desc">{{::options.short_description}}</span>
+    </div>
+  </a>
+</div>]]></template>
+    </sp_widget>
+</record_update>

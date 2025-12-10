@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="36b148058321b210b943c020feaad3dc" label="GenAI Audit Table" max_length="40" name="x_1604691_enerst_0_genai_audit_table" type="collection">
+        <element label="AI Response" max_length="4000" name="ai_response" type="string"/>
+        <element label="Input Text" max_length="4000" name="input_text" type="string"/>
+        <element label="Confidence Score" max_length="40" name="confidence_score" type="integer"/>
+        <element label="Related Case" max_length="32" name="related_case" reference="x_1604691_enerst_0_service_case" type="reference"/>
+        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <index name="index">
+            <element name="related_case"/>
+        </index>
+    </element>
+</database>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <active>true</active>
+        <api_name>x_1604691_enerst_0.GenAITriageHandler</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <mobile_callable>false</mobile_callable>
+        <name>GenAITriageHandler</name>
+        <sandbox_callable>false</sandbox_callable>
+        <script><![CDATA[var GenAITriageHandler = Class.create();
+GenAITriageHandler.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
+
+    analyzeTicket: function(ticketGR) {
+        try {
+            var prompt = "You are a utility triage expert. Analyze the description and the attached image (if any). " +
+                         "Extract exactly three fields: 'category' (Infrastructure, Vegetation, Electrical, Other), " +
+                         "'subcategory' (Pole, Transformer, Line, Tree, Fire, Leak), and " +
+                         "'urgency' (High, Medium, Low). " +
+                         "Return ONLY raw JSON: {\"category\": \"...\", \"subcategory\": \"...\", \"urgency\": \"...\"}. " +
+                         "Description: " + ticketGR.description;
+
+            // 1. LOOK FOR IMAGE ATTACHMENTS
+            var imagePayload = null;
+            var attachGR = new GlideRecord('sys_attachment');
+            attachGR.addQuery('table_sys_id', ticketGR.getUniqueValue());
+            attachGR.addQuery('content_type', 'STARTSWITH', 'image/');
+            attachGR.query();
+
+            if (attachGR.next()) {
+                // Found an image! Convert to Base64
+                var gsa = new GlideSysAttachment();
+                var base64Data = gsa.getContentBase64(attachGR);
+                var mimeType = attachGR.content_type.toString();
+                
+                imagePayload = {
+                    "inline_data": {
+                        "mime_type": mimeType,
+                        "data": base64Data
+                    }
+                };
+            }
+
+            // 2. CONSTRUCT JSON PAYLOAD
+            var contentsParts = [{ "text": prompt }];
+            if (imagePayload) {
+                contentsParts.push(imagePayload); // Add image if found
+            }
+
+            var requestBody = {
+                "contents": [{
+                    "parts": contentsParts
+                }]
+            };
+
+            // 3. CALL GEMINI API
+            var r = new sn_ws.RESTMessageV2();
+            r.setHttpMethod('POST');
+            // Use your working endpoint (Flash 1.5 supports images)
+            r.setEndpoint('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + gs.getProperty('x_1604691_enerst_0.gemini.api.key')); 
+            // Note: I used a System Property for the key. If you didn't make one, paste your key directly above.
+            
+            r.setRequestHeader('Content-Type', 'application/json');
+            r.setRequestBody(JSON.stringify(requestBody));
+
+            var response = r.execute();
+            var responseBody = response.getBody();
+            
+            if (response.getStatusCode() != 200) {
+                gs.error("GenAI Triage Failed: " + responseBody);
+                return;
+            }
+
+            // 4. PARSE & UPDATE
+            var parsed = JSON.parse(responseBody);
+            var aiText = parsed.candidates[0].content.parts[0].text;
+            
+            // Clean Markdown
+            aiText = aiText.replace(/```json/g, "").replace(/```/g, "").trim();
+            var result = JSON.parse(aiText);
+
+            // Update the Ticket
+            ticketGR.category = result.category; // Ensure these options exist in your dropdowns!
+            ticketGR.subcategory = result.subcategory; 
+            ticketGR.urgency = this._mapUrgency(result.urgency); // Helper to map 'High' to 1, 2, 3
+            ticketGR.work_notes = "GenAI Triage Analysis:\nCategory: " + result.category + "\nReasoning: Analysis of description and evidence.";
+            ticketGR.update();
+
+        } catch (ex) {
+            gs.error("GenAI Triage Error: " + ex.message);
+        }
+    },
+
+    _mapUrgency: function(text) {
+        if (!text) return 3; // Default Low
+        text = text.toLowerCase();
+        if (text.includes("high") || text.includes("critical")) return 1;
+        if (text.includes("medium")) return 2;
+        return 3;
+    },
+
+    type: 'GenAITriageHandler'
+});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-12-07 06:03:33</sys_created_on>
+        <sys_id>4b11a02b83e93210b943c020feaad384</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>GenAITriageHandler</sys_name>
+        <sys_package display_value="EnerState" source="x_1604691_enerst_0">bcbbfff483ed7210b943c020feaad3d3</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="EnerState">bcbbfff483ed7210b943c020feaad3d3</sys_scope>
+        <sys_update_name>sys_script_include_4b11a02b83e93210b943c020feaad384</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-12-07 06:03:33</sys_updated_on>
+    </sys_script_include>
+</record_update>

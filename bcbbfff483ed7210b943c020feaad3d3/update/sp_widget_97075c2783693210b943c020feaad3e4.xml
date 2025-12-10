@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function() {
+  /* widget controller */
+  var c = this;
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>/* Container Styling */&#13;
+.risk-monitor-panel {&#13;
+  border: 1px solid #ddd;&#13;
+  background-color: #fff;&#13;
+  border-radius: 4px;&#13;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);&#13;
+  margin-top: 20px;&#13;
+  font-family: 'Montserrat', sans-serif;&#13;
+}&#13;
+&#13;
+.panel-header {&#13;
+  background-color: #004d40; /* Teal Brand */&#13;
+  color: white;&#13;
+  padding: 15px;&#13;
+  border-bottom: 3px solid #ffb300; /* Amber Accent */&#13;
+}&#13;
+&#13;
+.panel-title {&#13;
+  margin: 0;&#13;
+  font-weight: 700;&#13;
+  text-transform: uppercase;&#13;
+  font-size: 16px;&#13;
+}&#13;
+&#13;
+.panel-subtitle {&#13;
+  font-size: 11px;&#13;
+  opacity: 0.8;&#13;
+  text-transform: uppercase;&#13;
+  letter-spacing: 1px;&#13;
+}&#13;
+&#13;
+/* Card Styling */&#13;
+.risk-card {&#13;
+  border-left: 5px solid transparent;&#13;
+  margin-bottom: 1px;&#13;
+  padding: 15px;&#13;
+}&#13;
+&#13;
+.risk-header {&#13;
+  display: flex;&#13;
+  justify-content: space-between;&#13;
+  align-items: center;&#13;
+  margin-bottom: 10px;&#13;
+}&#13;
+&#13;
+.zone-name {&#13;
+  margin: 0;&#13;
+  font-weight: 700;&#13;
+  color: #333;&#13;
+}&#13;
+&#13;
+.badge-risk {&#13;
+  padding: 4px 8px;&#13;
+  border-radius: 4px;&#13;
+  color: white;&#13;
+  font-weight: bold;&#13;
+  text-transform: uppercase;&#13;
+  font-size: 10px;&#13;
+}&#13;
+&#13;
+/* Color Coding Logic */&#13;
+.risk-high {&#13;
+  border-left-color: #d9534f; /* Red */&#13;
+  background-color: rgba(217, 83, 79, 0.05);&#13;
+}&#13;
+.risk-high .badge-risk { background-color: #d9534f; }&#13;
+&#13;
+.risk-medium {&#13;
+  border-left-color: #f0ad4e; /* Orange */&#13;
+}&#13;
+.risk-medium .badge-risk { background-color: #f0ad4e; }&#13;
+&#13;
+.risk-low {&#13;
+  border-left-color: #5cb85c; /* Green */&#13;
+}&#13;
+.risk-low .badge-risk { background-color: #5cb85c; }&#13;
+&#13;
+/* Details */&#13;
+.weather-info {&#13;
+  font-size: 12px;&#13;
+  color: #666;&#13;
+  margin-bottom: 5px;&#13;
+  font-weight: bold;&#13;
+}&#13;
+&#13;
+.rationale {&#13;
+  font-size: 12px;&#13;
+  color: #555;&#13;
+  font-style: italic;&#13;
+  line-height: 1.4;&#13;
+}&#13;
+&#13;
+.confidence-bar {&#13;
+  margin-top: 10px;&#13;
+  font-size: 10px;&#13;
+  color: #999;&#13;
+  text-align: right;&#13;
+  border-top: 1px solid #eee;&#13;
+  padding-top: 5px;&#13;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>enerstate_risk_monitor</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+  
+}]]></link>
+        <name>EnerState Risk Monitor</name>
+        <option_schema/>
+        <public>true</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  data.predictions = [];
+  
+  // 1. Target your specific table
+  var gr = new GlideRecord('x_1604691_enerst_0_outage_prediction_table');
+  
+<<<<<<< HEAD
+  // 2. Get predictions from the last 7 days
+  gr.addEncodedQuery('sys_created_onONLast 7 days@javascript:gs.beginningOfLast7Days()@javascript:gs.endOfLast7Days()');
+  
+  // 3. Execute Query
+=======
+  // 2. Get only the latest analysis (from Today)
+  gr.addQuery('sys_created_on', 'ON', 'Today@javascript:gs.beginningOfToday()@javascript:gs.endOfToday()');
+  
+  // 3. Order by Risk (We want High risk at the top)
+  // Since 'High', 'Medium', 'Low' are strings, we can't easily sort by SQL, 
+  // so we will just fetch them and sort via logic if needed, or just list them.
+  gr.orderByDesc('sys_created_on'); 
+>>>>>>> 73aeb026456c8d0e7c95253bb7db2d8840932659
+  gr.query();
+
+  while (gr.next()) {
+    var item = {};
+    item.zone = gr.getValue('zone'); // Using your exact column names
+    item.risk = gr.getValue('risk_score');
+    item.rationale = gr.getValue('ai_rationale');
+    item.weather = gr.getValue('weather_pattern');
+    item.confidence = gr.getValue('confidence_level');
+    
+<<<<<<< HEAD
+    // Create a CSS class based on risk and assign a sort weight
+    if (item.risk == 'High') {
+        item.cssClass = 'risk-high';
+        item.icon = 'fa-exclamation-triangle';
+        item.sortWeight = 3;
+    } else if (item.risk == 'Medium') {
+        item.cssClass = 'risk-medium';
+        item.icon = 'fa-exclamation-circle';
+        item.sortWeight = 2;
+    } else {
+        item.cssClass = 'risk-low';
+        item.icon = 'fa-check-circle';
+        item.sortWeight = 1;
+=======
+    // Create a CSS class based on risk
+    if (item.risk == 'High') {
+        item.cssClass = 'risk-high';
+        item.icon = 'fa-exclamation-triangle';
+    } else if (item.risk == 'Medium') {
+        item.cssClass = 'risk-medium';
+        item.icon = 'fa-exclamation-circle';
+    } else {
+        item.cssClass = 'risk-low';
+        item.icon = 'fa-check-circle';
+>>>>>>> 73aeb026456c8d0e7c95253bb7db2d8840932659
+    }
+    
+    data.predictions.push(item);
+  }
+<<<<<<< HEAD
+
+  // 4. Sort by Risk (High to Low)
+  data.predictions.sort(function(a, b) {
+      return b.sortWeight - a.sortWeight;
+  });
+
+=======
+>>>>>>> 73aeb026456c8d0e7c95253bb7db2d8840932659
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-12-07 05:15:20</sys_created_on>
+        <sys_id>97075c2783693210b943c020feaad3e4</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>EnerState Risk Monitor</sys_name>
+        <sys_package display_value="EnerState" source="x_1604691_enerst_0">bcbbfff483ed7210b943c020feaad3d3</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="EnerState">bcbbfff483ed7210b943c020feaad3d3</sys_scope>
+        <sys_update_name>sp_widget_97075c2783693210b943c020feaad3e4</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-12-07 05:16:50</sys_updated_on>
+        <template><![CDATA[<div class="risk-monitor-panel">
+  <div class="panel-header">
+    <h3 class="panel-title"><i class="fa fa-bolt"></i> Live Infrastructure Risk</h3>
+    <span class="panel-subtitle">AI-Powered Predictive Analysis</span>
+  </div>
+  
+  <div class="list-group">
+    <div class="list-group-item risk-card" ng-repeat="item in data.predictions" ng-class="item.cssClass">
+      <div class="risk-header">
+        <h4 class="zone-name">{{item.zone}}</h4>
+        <span class="badge-risk">{{item.risk}} Risk</span>
+      </div>
+      
+      <div class="risk-details">
+        <div class="weather-info">
+          <i class="fa fa-cloud"></i> {{item.weather}}
+        </div>
+        <p class="rationale">{{item.rationale}}</p>
+      </div>
+      
+      <div class="confidence-bar">
+        <small>AI Confidence: {{item.confidence * 100 | number:0}}%</small>
+      </div>
+    </div>
+    
+    <div ng-if="data.predictions.length == 0" class="text-center padder">
+      <p>No active risk alerts for today.</p>
+    </div>
+  </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

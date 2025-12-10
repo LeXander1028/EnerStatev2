@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_page">
+    <sp_page action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <css>/* 1. Target the button INSIDE the wrapper */
+.gold-border-btn .icon-link-background-primary,
+.gold-border-btn .icon-link-background-danger, 
+.gold-border-btn .icon-link-background-warning {
+    
+    /* The Border */
+    border: 5px solid #ffb300 !important;
+    
+    /* Essential to prevent the border from being cut off */
+    box-shadow: 0 0 0 2px #ffb300 !important; 
+    transform: scale(0.98); /* Shrinks it slightly so border fits */
+}
+
+/* 2. Hover Effect */
+.gold-border-btn:hover .icon-link-background-primary {
+    border-color: #ffffff !important;
+    box-shadow: 0 0 0 2px #ffffff !important;
+}</css>
+        <draft>false</draft>
+        <dynamic_title_structure/>
+        <human_readable_url_structure/>
+        <id>enerstate_home</id>
+        <internal>false</internal>
+        <omit_watcher>false</omit_watcher>
+        <public>false</public>
+        <roles/>
+        <seo_script/>
+        <short_description/>
+        <sys_class_name>sp_page</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-12-04 03:16:38</sys_created_on>
+        <sys_id>933f18a283253210b943c020feaad3bb</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>enerstate_home</sys_name>
+        <sys_package display_value="EnerState" source="x_1604691_enerst_0">bcbbfff483ed7210b943c020feaad3d3</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="EnerState">bcbbfff483ed7210b943c020feaad3d3</sys_scope>
+        <sys_update_name>sp_page_933f18a283253210b943c020feaad3bb</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-12-07 05:40:43</sys_updated_on>
+        <title>EnerState Home</title>
+        <use_seo_script>false</use_seo_script>
+    </sp_page>
+    <sys_translated_text action="delete_multiple" query="documentkey=933f18a283253210b943c020feaad3bb"/>
+</record_update>

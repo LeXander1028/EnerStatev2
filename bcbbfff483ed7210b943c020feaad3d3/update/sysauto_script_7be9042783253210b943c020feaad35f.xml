@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sysauto_script">
+    <sysauto_script action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <advanced>false</advanced>
+        <business_calendar/>
+        <condition/>
+        <conditional>false</conditional>
+        <entered_run_end/>
+        <entered_run_start/>
+        <entered_time>1970-01-01 00:00:00</entered_time>
+        <max_drift/>
+        <name>Daily Outage Analysis (GenAI)</name>
+        <offset/>
+        <offset_type>0</offset_type>
+        <repeat_every/>
+        <run_as display_value="System Administrator">6816f79cc0a8016401c5a33be04be441</run_as>
+        <run_as_tz/>
+        <run_dayofmonth>1</run_dayofmonth>
+        <run_dayofweek>1</run_dayofweek>
+        <run_daysofweek/>
+        <run_end/>
+        <run_month>1</run_month>
+        <run_period/>
+        <run_start/>
+        <run_time>1970-01-01 09:00:00</run_time>
+        <run_type>daily</run_type>
+        <run_weekinmonth>1</run_weekinmonth>
+        <script><![CDATA[(function runJob() {
+    // 1. GATHER DATA (Simulated Aggregation)
+    var realDataPayload = 
+        "Zone: Central Grid A. Stats: 45 year old lines, 15% pressure drop. Weather: Heavy Rain. " +
+        "Zone: Suburban Sector B. Stats: transformers at 90C. Weather: Heatwave. " +
+        "Zone: Industrial Park C. Stats: nominal pressure. Weather: Clear skies.";
+
+    gs.info("Outage Engine: Sending data to Gemini...");
+
+    try {
+        // 2. CALL GEMINI API
+        var r = new sn_ws.RESTMessageV2('Gemini Service', 'Analyze Outage Risk');
+        r.setStringParameterNoEscape('daily_data', realDataPayload);
+        
+        var response = r.execute();
+        var responseBody = response.getBody();
+        var httpStatus = response.getStatusCode();
+
+        if (httpStatus != 200) {
+            gs.error("Outage Engine Failed: " + httpStatus);
+            return;
+        }
+
+        // 3. PARSE RESPONSE
+        var parsedJSON = JSON.parse(responseBody);
+        var aiText = parsedJSON.candidates[0].content.parts[0].text;
+        
+        // Clean markdown
+        aiText = aiText.replace(/```json/g, "").replace(/```/g, "").trim();
+        var predictions = JSON.parse(aiText);
+
+        // 4. SAVE TO DATABASE (Using YOUR exact column names)
+        var targetTable = 'x_1604691_enerst_0_outage_prediction_table';
+
+        for (var i = 0; i < predictions.length; i++) {
+            var prediction = predictions[i];
+            
+            var predGR = new GlideRecord(targetTable);
+            predGR.initialize();
+            
+            // --- FIELD MAPPING (No 'u_' prefix!) ---
+            predGR.zone = prediction.zone;
+            predGR.risk_score = prediction.risk;
+            predGR.ai_rationale = prediction.rationale;
+            predGR.confidence_level = prediction.confidence; 
+            predGR.weather_pattern = prediction.weather;
+            predGR.analysis_date = new GlideDateTime();
+            
+            predGR.insert();
+            gs.info("Created Prediction for: " + prediction.zone);
+        }
+
+    } catch (ex) {
+        gs.error("Outage Engine Error: " + ex.message);
+    }
+})();]]></script>
+        <sys_class_name>sysauto_script</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-12-07 04:22:12</sys_created_on>
+        <sys_id>7be9042783253210b943c020feaad35f</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>Daily Outage Analysis (GenAI)</sys_name>
+        <sys_package display_value="EnerState" source="x_1604691_enerst_0">bcbbfff483ed7210b943c020feaad3d3</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="EnerState">bcbbfff483ed7210b943c020feaad3d3</sys_scope>
+        <sys_update_name>sysauto_script_7be9042783253210b943c020feaad35f</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-12-07 05:08:49</sys_updated_on>
+        <time_zone/>
+        <upgrade_safe>false</upgrade_safe>
+    </sysauto_script>
+</record_update>

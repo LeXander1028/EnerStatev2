@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="1351c8c18321b210b943c020feaad396" label="Outage Prediction Table" max_length="40" name="x_1604691_enerst_0_outage_prediction_table" type="collection">
+        <element label="Analysis Date" max_length="40" name="analysis_date" type="glide_date_time"/>
+        <element label="AI Rationale" max_length="4000" name="ai_rationale" type="string"/>
+        <element label="Risk Score" max_length="40" name="risk_score" type="string"/>
+        <element label="Weather Pattern" max_length="4000" name="weather_pattern" type="string"/>
+        <element label="Zone" max_length="40" name="zone" type="string"/>
+        <element label="Confidence Level" max_length="38" name="confidence_level" type="decimal"/>
+        <element label="Location" max_length="400" name="location" type="string"/>
+    </element>
+</database>
