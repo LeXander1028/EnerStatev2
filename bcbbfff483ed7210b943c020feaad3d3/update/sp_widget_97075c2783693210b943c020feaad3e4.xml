@@ -127,20 +127,10 @@
   // 1. Target your specific table
   var gr = new GlideRecord('x_1604691_enerst_0_outage_prediction_table');
   
-<<<<<<< HEAD
   // 2. Get predictions from the last 7 days
   gr.addEncodedQuery('sys_created_onONLast 7 days@javascript:gs.beginningOfLast7Days()@javascript:gs.endOfLast7Days()');
   
   // 3. Execute Query
-=======
-  // 2. Get only the latest analysis (from Today)
-  gr.addQuery('sys_created_on', 'ON', 'Today@javascript:gs.beginningOfToday()@javascript:gs.endOfToday()');
-  
-  // 3. Order by Risk (We want High risk at the top)
-  // Since 'High', 'Medium', 'Low' are strings, we can't easily sort by SQL, 
-  // so we will just fetch them and sort via logic if needed, or just list them.
-  gr.orderByDesc('sys_created_on'); 
->>>>>>> 73aeb026456c8d0e7c95253bb7db2d8840932659
   gr.query();
 
   while (gr.next()) {
@@ -151,7 +141,6 @@
     item.weather = gr.getValue('weather_pattern');
     item.confidence = gr.getValue('confidence_level');
     
-<<<<<<< HEAD
     // Create a CSS class based on risk and assign a sort weight
     if (item.risk == 'High') {
         item.cssClass = 'risk-high';
@@ -165,31 +154,77 @@
         item.cssClass = 'risk-low';
         item.icon = 'fa-check-circle';
         item.sortWeight = 1;
-=======
-    // Create a CSS class based on risk
-    if (item.risk == 'High') {
-        item.cssClass = 'risk-high';
-        item.icon = 'fa-exclamation-triangle';
-    } else if (item.risk == 'Medium') {
-        item.cssClass = 'risk-medium';
-        item.icon = 'fa-exclamation-circle';
-    } else {
-        item.cssClass = 'risk-low';
-        item.icon = 'fa-check-circle';
->>>>>>> 73aeb026456c8d0e7c95253bb7db2d8840932659
     }
     
     data.predictions.push(item);
   }
-<<<<<<< HEAD
+
+  // --- DEMO DATA INJECTION (For Presentation) ---
+  // This ensures the widget always looks populated with diverse data
+  var demoData = [
+    {
+        zone: "North District - Substation A",
+        risk: "High",
+        weather: "Severe Thunderstorm Warning",
+        rationale: "High probability of lightning strike on aging transformer infrastructure.",
+        confidence: "0.92",
+        cssClass: "risk-high",
+        icon: "fa-exclamation-triangle",
+        sortWeight: 3
+    },
+    {
+        zone: "West End - Sector 4",
+        risk: "High",
+        weather: "High Winds (45mph)",
+        rationale: "Vegetation encroachment detected near power lines. Risk of branch fall.",
+        confidence: "0.88",
+        cssClass: "risk-high",
+        icon: "fa-exclamation-triangle",
+        sortWeight: 3
+    },
+    {
+        zone: "Downtown Core",
+        risk: "Medium",
+        weather: "Heatwave Alert",
+        rationale: "Grid load approaching peak capacity. Thermal stress on underground cables.",
+        confidence: "0.75",
+        cssClass: "risk-medium",
+        icon: "fa-exclamation-circle",
+        sortWeight: 2
+    },
+    {
+        zone: "Eastside Industrial Park",
+        risk: "Medium",
+        weather: "Heavy Rain",
+        rationale: "Potential for localized flooding affecting ground-mounted equipment.",
+        confidence: "0.68",
+        cssClass: "risk-medium",
+        icon: "fa-exclamation-circle",
+        sortWeight: 2
+    },
+    {
+        zone: "South Residential",
+        risk: "Low",
+        weather: "Clear",
+        rationale: "Routine monitoring. No significant anomalies detected.",
+        confidence: "0.95",
+        cssClass: "risk-low",
+        icon: "fa-check-circle",
+        sortWeight: 1
+    }
+  ];
+
+  // Add demo data to the main array
+  for (var i = 0; i < demoData.length; i++) {
+      data.predictions.push(demoData[i]);
+  }
+  // ----------------------------------------------
 
   // 4. Sort by Risk (High to Low)
   data.predictions.sort(function(a, b) {
       return b.sortWeight - a.sortWeight;
   });
 
-=======
->>>>>>> 73aeb026456c8d0e7c95253bb7db2d8840932659
 })();]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
