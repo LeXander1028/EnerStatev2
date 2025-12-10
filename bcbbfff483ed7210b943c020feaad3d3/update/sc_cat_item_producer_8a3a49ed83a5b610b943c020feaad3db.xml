@@ -80,30 +80,7 @@
 * Don't use `current.setValue('sys_class_name', 'xxx')` as this will trigger reparent flow and can cause data loss
 * Avoid `current.setAbortAction()` and generate a separate record
 * Use `producer.var1` to access variables
-<<<<<<< HEAD
-*/
-
-// Map variables that don't have direct field mappings
-var details = [];
-if (producer.installation_address) {
-    details.push("Installation Address: " + producer.installation_address);
-}
-if (producer.preferred_site_visit_date) {
-    details.push("Preferred Site Visit Date: " + producer.preferred_site_visit_date);
-}
-
-// Append to existing description or create new one
-if (details.length > 0) {
-    var newDetails = details.join("\n");
-    if (current.description) {
-        current.description = current.description + "\n\n" + newDetails;
-    } else {
-        current.description = newDetails;
-    }
-}]]></script>
-=======
 */]]></script>
->>>>>>> 73aeb026456c8d0e7c95253bb7db2d8840932659
         <short_description>Request a new gas, water, or electric connection.</short_description>
         <show_variable_help_on_load>false</show_variable_help_on_load>
         <start_closed>false</start_closed>

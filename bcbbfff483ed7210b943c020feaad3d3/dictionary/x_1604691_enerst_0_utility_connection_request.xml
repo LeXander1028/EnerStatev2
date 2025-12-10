@@ -2,9 +2,9 @@
     <element db_object_id="a5b0cc8183ed7210b943c020feaad3da" extends="task" label="Utility Connection Request" max_length="40" name="x_1604691_enerst_0_utility_connection_request" type="collection">
         <element choice="1" label="Service Type" max_length="40" name="service_type" type="choice">
             <choice>
+                <element inactive_on_update="false" label="Gas" sequence="1" value="gas"/>
                 <element inactive_on_update="false" label="Water" sequence="2" value="water"/>
                 <element inactive_on_update="false" label="Electric" sequence="0" value="electric"/>
-                <element inactive_on_update="false" label="Gas" sequence="1" value="gas"/>
             </choice>
         </element>
         <element label="Site Plan" max_length="40" name="site_plan" type="file_attachment"/>
